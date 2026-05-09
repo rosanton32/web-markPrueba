@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HELIKEM Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --lime:          #7FFF00;
+  --lime-dim:      rgba(127,255,0,0.09);
+  --lime-glow:     0 0 24px rgba(127,255,0,0.25);
+
+  --bg-primary:    #0D0D0D;
+  --bg-secondary:  #151515;
+  --bg-card:       #191919;
+  --surface-1:     #1F1F1F;
+  --surface-border:#272727;
+
+  --text-primary:  #F2F2F2;
+  --text-muted:    rgba(242,242,242,0.50);
+  --text-faint:    rgba(242,242,242,0.22);
+
+  --font-display:  'Bebas Neue', sans-serif;
+  --font-ui:       'Barlow Condensed', sans-serif;
+  --font-body:     'Barlow', sans-serif;
+  --r: 3px;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-body); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 3rem;
+  background: rgba(13,13,13,0.93);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--surface-border);
+}
+.nav-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
+.nav-logo svg { height: 34px; width: auto; }
+.nav-logo-text { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: 0.12em; color: var(--text-primary); line-height: 1; }
+.nav-logo-text span { color: var(--lime); }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { font-family: var(--font-ui); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text-primary); }
+.btn-lime { background: var(--lime); color: #0D0D0D !important; padding: 0.5rem 1.4rem; border-radius: var(--r); font-family: var(--font-ui) !important; font-weight: 700 !important; font-size: 0.85rem !important; letter-spacing: 0.1em; text-transform: uppercase; transition: box-shadow 0.2s, opacity 0.2s; }
+.btn-lime:hover { box-shadow: var(--lime-glow); opacity: 0.9; }
+
+/* ── HERO ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 3rem 5rem; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 50% 45% at 78% 30%, rgba(127,255,0,0.055) 0%, transparent 70%), radial-gradient(ellipse 35% 35% at 15% 70%, rgba(127,255,0,0.03) 0%, transparent 60%); }
+.hero-grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+
+.hero-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-ui); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); border: 1px solid rgba(127,255,0,0.28); padding: 0.4rem 1rem; border-radius: 2px; width: fit-content; margin-bottom: 1.6rem; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--lime); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+
+.hero h1 { font-family: var(--font-display); font-size: clamp(4.5rem, 11vw, 10rem); line-height: 0.92; letter-spacing: 0.04em; color: var(--text-primary); max-width: 900px; margin-bottom: 2.5rem; }
+.hero h1 .hl { color: var(--lime); }
+
+.hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.hero-desc { font-size: 1.05rem; line-height: 1.65; color: var(--text-muted); max-width: 420px; font-weight: 300; }
+.hero-ctas { display: flex; gap: 1rem; align-items: center; }
+
+.btn-primary { background: var(--lime); color: #0D0D0D; padding: 0.9rem 2.2rem; border-radius: var(--r); font-family: var(--font-ui); font-size: 0.95rem; font-weight: 700; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; border: none; cursor: pointer; transition: box-shadow 0.2s, transform 0.15s; }
+.btn-primary:hover { box-shadow: var(--lime-glow); transform: translateY(-2px); }
+
+.btn-outline { color: var(--text-muted); padding: 0.9rem 1.4rem; font-family: var(--font-ui); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--surface-border); border-radius: var(--r); display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s, border-color 0.2s; }
+.btn-outline:hover { color: var(--text-primary); border-color: rgba(242,242,242,0.25); }
+.btn-outline::after { content: '→'; }
+
+/* ── TICKER ── */
+.ticker { overflow: hidden; padding: 0.85rem 0; background: var(--surface-1); border-top: 1px solid var(--surface-border); border-bottom: 1px solid var(--surface-border); }
+.ticker-track { display: flex; width: max-content; animation: tick 26s linear infinite; }
+.ticker-item { display: flex; align-items: center; gap: 1rem; padding: 0 2.5rem; font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; color: var(--text-faint); }
+.ticker-sep { color: var(--lime); opacity: 0.7; }
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── SECTIONS ── */
+section { padding: 6rem 3rem; }
+.s-label { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); margin-bottom: 0.75rem; }
+.s-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 4.2rem); line-height: 0.95; letter-spacing: 0.04em; color: var(--text-primary); margin-bottom: 1.5rem; }
+
+.approach-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 2.5rem; }
+.approach-copy p { font-size: 1rem; line-height: 1.75; color: var(--text-muted); font-weight: 300; margin-bottom: 1.2rem; }
+.approach-highlight { border-left: 2px solid var(--lime); padding: 1rem 1.4rem; background: var(--lime-dim); border-radius: 0 var(--r) var(--r) 0; font-size: 0.95rem; font-weight: 400; color: var(--text-primary); line-height: 1.65; margin-top: 1.5rem; }
+.steps { display: flex; flex-direction: column; border: 1px solid var(--surface-border); border-radius: var(--r); overflow: hidden; }
+.step { display: flex; align-items: flex-start; gap: 1.2rem; padding: 1.4rem 1.6rem; border-bottom: 1px solid var(--surface-border); transition: background 0.2s; }
+.step:last-child { border-bottom: none; }
+.step:hover { background: var(--surface-1); }
+.step-num { font-family: var(--font-display); font-size: 1.6rem; color: var(--lime); min-width: 2rem; line-height: 1; padding-top: 0.05rem; }
+.step h4 { font-family: var(--font-ui); font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 0.3rem; }
+.step p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; font-weight: 300; }
+
+.services-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.services-intro p { font-size: 1rem; color: var(--text-muted); max-width: 380px; line-height: 1.65; font-weight: 300; }
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--surface-border); border: 1px solid var(--surface-border); }
+.svc-card { background: var(--bg-card); padding: 2.2rem 1.8rem; position: relative; overflow: hidden; transition: background 0.25s; }
+.svc-card:hover { background: var(--surface-1); }
+.svc-card::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: var(--lime); transition: width 0.35s ease; }
+.svc-card:hover::after { width: 100%; }
+.svc-num { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.08em; color: var(--lime); opacity: 0.45; margin-bottom: 1.2rem; }
+.svc-name { font-family: var(--font-ui); font-size: 1.05rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 0.65rem; }
+.svc-desc { font-size: 0.88rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
+
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--surface-border); }
+.stat { padding: 2.5rem 2rem; text-align: center; border-right: 1px solid var(--surface-border); }
+.stat:last-child { border-right: none; }
+.stat-n { font-family: var(--font-display); font-size: 3.8rem; color: var(--lime); line-height: 1; margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+.stat-l { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+
+.iberia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2.5rem; }
+.iberia-card { background: var(--bg-card); border: 1px solid var(--surface-border); border-radius: var(--r); padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.25s; }
+.iberia-card:hover { border-color: rgba(127,255,0,0.3); }
+.iberia-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime) 0%, transparent 100%); opacity: 0; transition: opacity 0.3s; }
+.iberia-card:hover::before { opacity: 1; }
+.country-flag { font-size: 2rem; margin-bottom: 1rem; }
+.country-name { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.06em; color: var(--text-primary); margin-bottom: 0.75rem; }
+.country-desc { font-size: 0.88rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; margin-bottom: 1.2rem; }
+.country-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag { font-family: var(--font-ui); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 2px; border: 1px solid var(--surface-border); color: var(--text-muted); }
+
+.contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.contact-h { font-family: var(--font-display); font-size: clamp(2.8rem, 4.5vw, 4rem); line-height: 0.95; letter-spacing: 0.04em; margin-bottom: 1.2rem; color: var(--text-primary); }
+.contact-h em { color: var(--lime); font-style: normal; }
+.contact-sub { font-size: 1rem; color: var(--text-primary); line-height: 1.65; font-weight: 300; margin-bottom: 2rem; }
+.info-list { display: flex; flex-direction: column; gap: 0.9rem; }
+.info-row { display: flex; gap: 0.8rem; align-items: baseline; }
+.info-key { font-family: var(--font-ui); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lime); min-width: 80px; }
+.info-val { font-size: 0.9rem; color: var(--text-primary); font-weight: 300; }
+
+.form-g { margin-bottom: 0.85rem; }
+.form-g label { display: block; font-family: var(--font-ui); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.45rem; }
+.form-g input, .form-g select, .form-g textarea { width: 100%; background: var(--bg-card); border: 1px solid var(--surface-border); border-radius: var(--r); padding: 0.8rem 0.95rem; color: var(--text-primary); font-family: var(--font-body); font-size: 0.9rem; font-weight: 300; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+.form-g input:focus, .form-g select:focus, .form-g textarea:focus { border-color: var(--lime); }
+.form-g select option { background: #1a1a1a; }
+.form-g textarea { min-height: 90px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.btn-submit { width: 100%; margin-top: 0.5rem; background: var(--lime); color: #0D0D0D; border: none; padding: 1rem; border-radius: var(--r); font-family: var(--font-ui); font-size: 0.95rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: box-shadow 0.2s, opacity 0.2s; }
+.btn-submit:hover { box-shadow: var(--lime-glow); opacity: 0.9; }
+
+footer { background: #090909; border-top: 1px solid var(--surface-border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.f-logo { display: flex; align-items: center; gap: 0.7rem; }
+.f-logo svg { height: 26px; }
+.f-logo-text { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.12em; color: var(--text-primary); }
+.f-logo-text span { color: var(--lime); }
+.f-copy { font-family: var(--font-body); font-size: 0.73rem; color: var(--text-faint); font-weight: 300; }
+.f-links { display: flex; gap: 1.5rem; }
+.f-links a { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); text-decoration: none; transition: color 0.2s; }
+.f-links a:hover { color: var(--lime); }
+
+.fi { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.fi.on { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- Isotipo M/V fiel al nuevo logo: forma M con V interna -->
+    <svg viewBox="0 0 60 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Patas izquierda y derecha (M) -->
+      <polygon points="0,0 11,0 11,42 0,52" fill="#7FFF00"/>
+      <polygon points="49,0 60,0 60,52 49,42" fill="#7FFF00"/>
+      <!-- Diagonal izquierda bajando al centro -->
+      <polygon points="0,0 11,0 30,28 19,28" fill="#7FFF00"/>
+      <!-- Diagonal derecha bajando al centro -->
+      <polygon points="49,0 60,0 41,28 30,28" fill="#7FFF00"/>
+      <!-- V interior (chevron) -->
+      <polygon points="8,0 19,0 30,22 41,0 52,0 30,34" fill="#7FFF00"/>
+    </svg>
+    <div class="nav-logo-text">HELIKEM <span>Solutions</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#quienes">Quiénes somos</a></li>
+    <li><a href="#servicios">Construimos juntos</a></li>
+    <li><a href="#enfoque">Enfoque</a></li>
+    <li><a href="#contacto" class="btn-lime">Contactar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-badge">España · Portugal</div>
+  <h1>Tu marca<br>Nuestro <span class="hl">mercado</span></h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Publicidad, Marketing y Consultoría estratégica para marcas que quieren crecer, posicionarse y liderar en el mercado ibérico.</p>
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn-primary">Hablar con nosotros</a>
+      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Marketing Digital <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Eventos & BTL <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Implantación de Marcas <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Análisis de Negocio <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Publicidad Creativa <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Consultoría Estratégica <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Expansión Ibérica <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Marketing Digital <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Eventos & BTL <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Implantación de Marcas <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Análisis de Negocio <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Publicidad Creativa <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Consultoría Estratégica <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Expansión Ibérica <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- QUIENES SOMOS -->
+<section id="quienes" style="background:var(--bg-primary)">
+  <div class="fi"><div class="s-label">Quiénes somos</div><h2 class="s-title">Una agencia con visión de negocio</h2></div>
+  <div class="approach-wrap fi">
+    <div class="approach-copy">
+      <p>HELIKEM Solutions es una agencia de Publicidad, Marketing y Consultoría especializada en el desarrollo de mercado en España y Portugal. Trabajamos con marcas que quieren entrar, crecer o consolidarse en el mercado ibérico.</p>
+      <p>Nuestro equipo combina experiencia en consultoría estratégica, creatividad publicitaria y ejecución operativa. No somos intermediarios: somos tu equipo sobre el terreno.</p>
+      <div class="approach-highlight">Entendemos Iberia porque llevamos años trabajando aquí. Conocemos sus mercados, sus medios, sus consumidores y sus reglas no escritas.</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div><h4>Agencia boutique</h4><p>Equipos pequeños, dedicados y altamente especializados por sector y disciplina.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div><h4>Red de contactos ibérica</h4><p>Relaciones directas con medios, distribuidores, retailers e instituciones en ES y PT.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div><h4>Orientación a resultados</h4><p>Cada acción se mide. Reportes claros, objetivos definidos y responsabilidad total.</p></div></div>
+      <div class="step"><div class="step-num">04</div><div><h4>Visión estratégica</h4><p>No ejecutamos sin entender el negocio. La estrategia siempre precede a la táctica.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" style="background:var(--bg-secondary)">
+  <div class="services-intro fi">
+    <div><div class="s-label">Construimos juntos</div><h2 class="s-title">Servicios que mueven marcas</h2></div>
+    <p>Cada servicio está diseñado para generar resultados medibles en el mercado español y portugués.</p>
+  </div>
+  <div class="svc-grid fi">
+    <div class="svc-card"><div class="svc-num">01</div><div class="svc-name">Marketing Digital</div><p class="svc-desc">Estrategias 360°: redes sociales, SEM, SEO, contenido y performance orientado a conversión.</p></div>
+    <div class="svc-card"><div class="svc-num">02</div><div class="svc-name">Eventos & BTL</div><p class="svc-desc">Activaciones de marca, experiencias en punto de venta y eventos que generan impacto real.</p></div>
+    <div class="svc-card"><div class="svc-num">03</div><div class="svc-name">Implantación de Marcas</div><p class="svc-desc">Llevamos marcas al mercado ibérico con estrategia local, conocimiento y red de contactos.</p></div>
+    <div class="svc-card"><div class="svc-num">04</div><div class="svc-name">Análisis de Negocio</div><p class="svc-desc">Diagnóstico profundo de mercado, competencia y oportunidades para decisiones con datos.</p></div>
+    <div class="svc-card"><div class="svc-num">05</div><div class="svc-name">Publicidad Creativa</div><p class="svc-desc">Campañas que comunican con creatividad estratégica en todos los medios y formatos.</p></div>
+    <div class="svc-card"><div class="svc-num">06</div><div class="svc-name">Consultoría de Expansión</div><p class="svc-desc">Plan estratégico, estructura comercial y desarrollo para crecer en España y Portugal.</p></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:4rem 3rem;background:var(--bg-primary);border-top:1px solid var(--surface-border);border-bottom:1px solid var(--surface-border)">
+  <div class="stats-row fi">
+    <div class="stat"><div class="stat-n">+80</div><div class="stat-l">Marcas impulsadas</div></div>
+    <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Años de experiencia</div></div>
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l">Mercados: ES · PT</div></div>
+    <div class="stat"><div class="stat-n">360°</div><div class="stat-l">Enfoque integral</div></div>
+  </div>
+</section>
+
+<!-- IBERIA -->
+<section id="iberia" style="background:var(--bg-primary)">
+  <div class="iberia-grid fi">
+    <div class="iberia-card">
+      <div class="country-flag">🇪🇸</div>
+      <div class="country-name">España</div>
+      <p class="country-desc">Presencia directa en el mercado español con conocimiento profundo de sus sectores, consumidores, medios y canales de distribución.</p>
+      <div class="country-tags"><span class="tag">Madrid</span><span class="tag">Barcelona</span><span class="tag">Valencia</span><span class="tag">Sevilla</span><span class="tag">Bilbao</span></div>
+    </div>
+    <div class="iberia-card">
+      <div class="country-flag">🇵🇹</div>
+      <div class="country-name">Portugal</div>
+      <p class="country-desc">Expansión natural al mercado portugués. Cultura cercana, idioma propio y un consumidor con alto potencial para marcas bien posicionadas.</p>
+      <div class="country-tags"><span class="tag">Lisboa</span><span class="tag">Porto</span><span class="tag">Braga</span><span class="tag">Algarve</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENFOQUE -->
+<section id="enfoque" style="background:var(--bg-secondary)">
+  <div class="fi"><div class="s-label">Nuestro enfoque</div><h2 class="s-title">Estrategia primero<br>Resultados siempre</h2></div>
+  <div class="approach-wrap fi">
+    <div class="approach-copy">
+      <p>En HELIKEM Solutions no ejecutamos acciones sueltas. Construimos ecosistemas de marketing donde cada pieza tiene un propósito claro: hacer crecer tu negocio de forma sostenible y medible.</p>
+      <p>Somos el socio estratégico que entiende España y Portugal, conoce sus mercados y tiene la red para abrir puertas que otros no pueden.</p>
+      <div class="approach-highlight">No somos una agencia más. Somos tu equipo de expansión ibérica, con la experiencia y los contactos para que tu marca funcione desde el primer día.</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div><h4>Diagnóstico estratégico</h4><p>Analizamos tu marca, mercado objetivo y competencia antes de proponer nada.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div><h4>Plan personalizado</h4><p>Diseñamos una hoja de ruta adaptada a tus objetivos y presupuesto real.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div><h4>Ejecución con rigor</h4><p>Implementamos cada acción con equipos especializados y procesos probados.</p></div></div>
+      <div class="step"><div class="step-num">04</div><div><h4>Medición y optimización</h4><p>Seguimiento continuo, reportes claros y mejora constante de resultados.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" style="background:var(--surface-1);border-top:1px solid var(--surface-border)">
+  <div class="contact-wrap">
+    <div class="fi">
+      <div class="s-label">Hablemos</div>
+      <h2 class="contact-h">¿Listo para entrar<br>en <em>Iberia</em>?</h2>
+      <p class="contact-sub">Cuéntanos tu proyecto. Analizamos tu situación y te presentamos una propuesta sin compromiso en menos de 48 horas.</p>
+      <div class="info-list">
+        <div class="info-row"><span class="info-key">Sede</span><span class="info-val">Madrid, España</span></div>
+        <div class="info-row"><span class="info-key">Email</span><span class="info-val">hola@helikem.com</span></div>
+        <div class="info-row"><span class="info-key">Teléfono</span><span class="info-val">+34 900 000 000</span></div>
+        <div class="info-row"><span class="info-key">Mercados</span><span class="info-val">España · Portugal</span></div>
+        <div class="info-row"><span class="info-key">Respuesta</span><span class="info-val">Menos de 48 horas</span></div>
+      </div>
+    </div>
+    <div class="fi">
+      <div class="form-row">
+        <div class="form-g"><label>Nombre</label><input type="text" placeholder="Tu nombre"></div>
+        <div class="form-g"><label>Empresa</label><input type="text" placeholder="Tu empresa"></div>
+      </div>
+      <div class="form-g"><label>Email</label><input type="email" placeholder="tu@empresa.com"></div>
+      <div class="form-g"><label>País de origen de la marca</label>
+        <select><option value="" disabled selected>Selecciona un país</option><option>España</option><option>Portugal</option><option>Francia</option><option>Alemania</option><option>Italia</option><option>Reino Unido</option><option>LATAM</option><option>Otro</option></select>
+      </div>
+      <div class="form-g"><label>Servicio de interés</label>
+        <select><option value="" disabled selected>Selecciona un servicio</option><option>Marketing Digital</option><option>Eventos & BTL</option><option>Implantación de marca en Iberia</option><option>Análisis de negocio</option><option>Publicidad creativa</option><option>Consultoría de expansión</option><option>Varios / No sé aún</option></select>
+      </div>
+      <div class="form-g"><label>Cuéntanos tu proyecto</label>
+        <textarea placeholder="¿Cuál es tu marca y qué quieres conseguir en el mercado ibérico?"></textarea>
+      </div>
+      <button class="btn-submit" id="submitBtn">Enviar mensaje →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">
+    <svg viewBox="0 0 60 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 11,0 11,42 0,52" fill="#7FFF00"/>
+      <polygon points="49,0 60,0 60,52 49,42" fill="#7FFF00"/>
+      <polygon points="0,0 11,0 30,28 19,28" fill="#7FFF00"/>
+      <polygon points="49,0 60,0 41,28 30,28" fill="#7FFF00"/>
+      <polygon points="8,0 19,0 30,22 41,0 52,0 30,34" fill="#7FFF00"/>
+    </svg>
+    <div class="f-logo-text">HELIKEM <span>Solutions</span></div>
+  </div>
+  <div class="f-copy">© 2025 HELIKEM Solutions. Todos los derechos reservados.</div>
+  <div class="f-links"><a href="#">Privacidad</a><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+document.getElementById('submitBtn').addEventListener('click', function() {
+  this.textContent = '¡Mensaje enviado! Te contactamos pronto ✓';
+  this.style.opacity = '0.75';
+  setTimeout(() => { this.textContent = 'Enviar mensaje →'; this.style.opacity = ''; }, 3500);
+});
+</script>
+</body>
+</html>
